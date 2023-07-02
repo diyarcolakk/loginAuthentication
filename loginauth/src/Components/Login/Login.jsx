@@ -1,53 +1,59 @@
-import "./Login.scss"
-import { useState } from "react"
 import firebase from "../../firebase"
+import { useState } from "react"
+
 
 const Login = () => {
 
-    const [userName,setUserName] = useState("")
-    const [password,setPassword] = useState("")
+    const [loginUser,setLoginUser] = useState("")
+    const [loginPassword,setLoginPassword] = useState("")
+    const [errorMessage,setErrorMessage] = useState("") 
 
     const  onSubmitHandler= (e) => {
         e.preventDefault()
-        handleSignUp();
+        handleLogin();
+      
     }
 
     const onChangeHandler = (e) => {
         const {name,value} = e.target
-        return name === "usernameInput" ? setUserName(value): setPassword(value)
+        return name === "loginUsername" ? setLoginUser(value): setLoginPassword(value)
     }
 
 
-    const handleSignUp = async() => {
-        try{
-            const userCredential = await firebase.auth().createUserWithEmailAndPassword(userName,password)
-            console.log(userCredential);
-            const user = userCredential.user
-            console.log(user);
-        }
-        catch(error) {
-            console.log(error);
-        }
+    const handleLogin = async () => {
+     try {
+      const newData=  await firebase.auth().signInWithEmailAndPassword(loginUser,loginPassword)
+      console.log(newData);
+      console.log(typeof newData);
+        console.log("Giriş Başarılı");
+        setErrorMessage("")
+        
+     } catch (error) {
+        setErrorMessage("Bir hatayla karşılaşıldı. Kullanıcı adı veya şifre yanlış")
+        console.log(error);
+     }
     }
 
-    return (
-    <>
-        <form onSubmit={onSubmitHandler}>
-            <div className="container">
-                <div>
-                <label htmlFor="username" >Username</label>
-                <input id="username" name="usernameInput" value={userName} type="email" onChange={onChangeHandler}/>
-                </div>
-                <div>
-                <label htmlFor="Password">Password</label>
-                <input id="Password" name="passwordInput" value={password}type="text" onChange={onChangeHandler} />
-                </div>
-            </div>
-            <div className="btn">
-                <button  type="submit">Send Authentication Request</button>
-            </div>
-        </form>
-    </>
+
+  return (
+    <>    <form onSubmit={onSubmitHandler}>
+    <div className="container">
+        <div>
+        <label htmlFor="Email" >Email</label>
+        <input id="Email" name="loginUsername" value={loginUser} type="email" onChange={onChangeHandler}/>
+        </div>
+        <div>
+        <label htmlFor="Password">Password</label>
+        <input id="Password" name="loginPassword" value={loginPassword}type="password" onChange={onChangeHandler} />
+        </div>
+    </div>
+    <div className="btn">
+        <button  type="submit">Send Login Request</button>
+    </div>
+</form>
+    {errorMessage && <div>{errorMessage}</div>}
+</>
+
   )
 }
 export default Login
