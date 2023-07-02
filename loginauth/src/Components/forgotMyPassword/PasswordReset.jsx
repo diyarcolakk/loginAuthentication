@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./PasswordReset.scss"
 
 import firebase from "../../firebase";
 const PasswordReset = () => {
@@ -41,10 +42,9 @@ const PasswordReset = () => {
     
   return (
     <>
-      <form onSubmit={onSubmitHandler}>
-        <div className="container">
-          <div>
-            <label htmlFor="email">Email</label>
+      <form className="resetContainer" onSubmit={onSubmitHandler}>
+          <div className="resetEmail">
+            <label htmlFor="email">Email: </label>
             <input
               placeholder="Please Enter Your Email"
               id="email"
@@ -54,7 +54,6 @@ const PasswordReset = () => {
               onChange={onChangeHandler}
             />
           </div>
-        </div>
         <div className="btn">
           <button type="submit">Send Password Reset</button>
         </div>

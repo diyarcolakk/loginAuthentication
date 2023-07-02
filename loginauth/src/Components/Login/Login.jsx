@@ -1,5 +1,6 @@
 import firebase from "../../firebase"
 import { useState } from "react"
+import "./Login.scss"
 
 
 const Login = () => {
@@ -37,7 +38,7 @@ const Login = () => {
 
   return (
     <>    <form onSubmit={onSubmitHandler}>
-    <div className="container">
+    <div className="loginContainer">
         <div>
         <label htmlFor="Email" >Email</label>
         <input id="Email" name="loginUsername" value={loginUser} type="email" onChange={onChangeHandler}/>
@@ -46,10 +47,11 @@ const Login = () => {
         <label htmlFor="Password">Password</label>
         <input id="Password" name="loginPassword" value={loginPassword}type="password" onChange={onChangeHandler} />
         </div>
-    </div>
-    <div className="btn">
+        <div className="btn">
         <button  type="submit">Send Login Request</button>
     </div>
+    </div>
+  
 </form>
     {errorMessage && <div>{errorMessage}</div>}
 </>

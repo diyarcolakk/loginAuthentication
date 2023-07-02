@@ -35,22 +35,23 @@ const Login = () => {
 
     return (
     <>
-        <form onSubmit={onSubmitHandler}>
+        <form className="form-container" onSubmit={onSubmitHandler}>
             <div className="container">
-                <div>
-                <label htmlFor="username" >Username</label>
+                <div >
+                <label htmlFor="username" > Email : </label>
                 <input id="username" name="usernameInput" value={userName} type="email" onChange={onChangeHandler}/>
                 </div>
                 <div>
-                <label htmlFor="Password">Password</label>
+                <label htmlFor="Password">Password : </label>
                 <input id="Password" name="passwordInput" value={password}type="text" onChange={onChangeHandler} />
                 </div>
             </div>
             <div className="btn">
-                <button  type="submit">Send Authentication Request</button>
+                <button  type="submit">Register</button>
             </div>
         </form>
-        <PasswordReset />
+      <PasswordReset /> 
+
     </>
   )
 }
